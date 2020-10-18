@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.app {
+	height: 100vh;
+	background: linear-gradient(#f5f5dc, #FFD000);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.menu-app {
+	width: 288px;
+	height: 512px;
+	background-image: url(../images/bg.png);
+	position: relative;
+}
+.menu-app__btnStart {
+	outline:none;
+	color: #FEF8EA;
+	text-transform: uppercase;
+	background-color: #E76100;
+	border: 3px solid #FCF8F6;
+	font-weight: bolder;
+	height: 40px;
+	width: 140px;
+	position: absolute;
+	top: 75%;
+	left: 27%;
+	cursor: pointer;
+}
+.menu-app__btnStart:hover {
+	transition: all .8s ease;
+	transform: rotate(10deg);
+	border: 3px solid #533303;
+}
