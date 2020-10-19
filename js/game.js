@@ -25,7 +25,7 @@ pipeBottom.src = "images/pipeBottom.png"
 
 // Gap!
 
-let gap = 90
+let gap = 140
 
 // Flappy Bird Position!
 
@@ -34,7 +34,7 @@ let birdY = 250
 
 // Gravity!
 
-let gravity = 1
+let gravity = 1.2
 
 // Moving bird up!
 
@@ -44,17 +44,52 @@ function moveBirdUp() {
 	birdY-=30
 }
 
+// Pipes!
+
+const pipes = []
+
+pipes[0] = {
+	x: cvs.width,
+	y: 0
+}
+
+// Score!
+
+let score = 0
+ 
 // Draw game!
 
 function draw() {
 	ctx.drawImage(bg, 0, 0)
+	for(let i = 0; i < pipes.length; i++) {
+		ctx.drawImage(pipeUp, pipes[i].x, pipes[i].y)
+		ctx.drawImage(pipeBottom, pipes[i].x, pipes[i].y + pipeUp.height + gap)
 
-	ctx.drawImage(pipeUp, 200, 0)
-	ctx.drawImage(pipeBottom, 200, 0 + pipeUp.height + gap)
+		pipes[i].x--
+
+		if(pipes[i].x === 100) {
+			pipes.push({
+				x: cvs.width,
+				y: Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+			})
+		} // Add pipes!
+
+		if(birdX + bird.width >= pipes[i].x && birdX <= pipes[i].x + pipeUp.width && (birdY <= pipes[i].y + pipeUp.height ||
+			birdY + bird.height >= pipes[i].y + pipeUp.height + gap)) {
+			location.reload()
+		} // Restart game!
+
+		if(pipes[i].x === 10) score++
+	}
 
 	ctx.drawImage(bird, birdX, birdY)
 
 	birdY+=gravity
+
+	ctx.fillStyle = '#b27a01'
+	ctx.font = '20px Open Sans'
+	ctx.fillText("Score: " + score, 100, cvs.height - 30)
+
 	requestAnimationFrame(draw)
 }
 
