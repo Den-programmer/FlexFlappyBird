@@ -56,11 +56,18 @@ pipes[0] = {
 // Score!
 
 let score = 0
+
+// Load Audio!
+
+const firstSong = new Audio
+
+firstSong.src = "audio/firstSong.mp3"
  
 // Draw game!
 
 function draw() {
 	ctx.drawImage(bg, 0, 0)
+	firstSong.play()
 	for(let i = 0; i < pipes.length; i++) {
 		ctx.drawImage(pipeUp, pipes[i].x, pipes[i].y)
 		ctx.drawImage(pipeBottom, pipes[i].x, pipes[i].y + pipeUp.height + gap)
@@ -79,7 +86,7 @@ function draw() {
 			location.reload()
 		} // Restart game!
 
-		if(pipes[i].x === 10) score++
+		if(pipes[i].x === 10) score++ 	
 	}
 
 	ctx.drawImage(bird, birdX, birdY)

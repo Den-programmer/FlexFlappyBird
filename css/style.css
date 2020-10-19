@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	user-select: none;
 }
 .app {
 	height: 100vh;
@@ -14,6 +15,7 @@
 	height: 512px;
 	background-image: url(../images/bg.png);
 	position: relative;
+
 }
 .menu-app__btnStart {
 	outline:none;
