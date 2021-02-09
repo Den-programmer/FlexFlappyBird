@@ -3,8 +3,13 @@
 	padding: 0;
 	user-select: none;
 }
+
+#canvas {
+	display: none;
+}
+
 .app {
-	height: 100vh;
+	min-height: 100vh;
 	background: linear-gradient(#f5f5dc, #FFD000);
 	display: flex;
 	justify-content: center;
@@ -13,9 +18,8 @@
 .menu-app {
 	width: 288px;
 	height: 512px;
-	background-image: url(../images/bg.png);
+	background-image: url(../images/Backgrounds/bg.png);
 	position: relative;
-
 }
 .menu-app__btnStart {
 	outline:none;
@@ -35,4 +39,48 @@
 	transition: all .8s ease;
 	transform: rotate(10deg);
 	border: 3px solid #533303;
+}
+
+.menu-app__btnSkins {
+	outline:none;
+	color: #FEF8EA;
+	text-transform: uppercase;
+	background-color: #413A6D;
+	border: 3px solid #FCF8F6;
+	font-weight: bolder;
+	height: 40px;
+	width: 140px;
+	position: absolute;
+	top: 85%;
+	left: 27%;
+	cursor: pointer;
+}
+.menu-app__btnSkins:hover {
+	transition: all .8s ease;
+	transform: rotate(10deg);
+	border: 3px solid #449D10;
+}
+
+.skins-menu {
+	width: 288px;
+	height: 512px;
+	background-image:url('../images/Backgrounds/skinsBg.png');
+	position: relative;
+	display: none;
+	text-align: center;
+}
+
+.skin_img {
+	box-sizing: border-box;
+	padding: 20px;
+	/*width: 200px;
+	height: 200px;*/
+}
+.skin_img_active {
+	border-bottom: 4px solid #000;
+}
+
+.skin_img:hover {
+	transition: all .4s linear;
+	border-bottom: 4px solid #000;
 }

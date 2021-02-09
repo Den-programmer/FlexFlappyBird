@@ -1,7 +1,15 @@
-const gameMenu = document.querySelector(".menu-app")
-const btnStart = document.querySelector(".menu-app__btnStart")
+"use strict"
 
-btnStart.addEventListener('click', startGame)
+const gameMenu = document.querySelector(".menu-app")
+const btnStart = document.querySelectorAll(".menu-app__btnStart")
+
+const skinsMenu = document.querySelector(".skins-menu")
+const btnSkins = document.querySelector(".menu-app__btnSkins")
+
+btnStart.forEach(item => {
+	item.addEventListener('click', startGame)
+})
+btnSkins.addEventListener('click', goToSkins)
 
 const cvs = document.getElementById("canvas")
 const ctx = cvs.getContext("2d")
@@ -13,15 +21,51 @@ cvs.height = 512
 
 // Load images!
 
+const birds = [
+	"images/birds/flappy_bird.png",
+	"images/birds/flappy_bird2.png",
+	"images/birds/flappy_bird3.png",
+	"images/birds/flappy_bird4.png",
+	"images/birds/estarossa.png",
+	"images/birds/DarthMaul.png",
+	"images/birds/lightningMCQUEEN95BirdFlappy.png",
+	"images/birds/HarryPotter2.png",
+]
+
+let chosen_bird = 0
+
+const birdSkins = birds.map((str, index) => {
+	const image = document.createElement(`img`)
+	image.classList.add("skin_img") 
+	image.src = str 
+	image.id = index
+	image.addEventListener('click', (e) => {
+		chosen_bird = Number(e.target.getAttribute("id"))
+		renderBirdSkins(chosen_bird)
+	})
+	return image
+})
+
 const bird = new Image()
 const bg = new Image()
+const bgNewYorkCity1 = new Image()
 const pipeUp = new Image()
 const pipeBottom = new Image()
 
-bird.src = "images/flappy_bird.png"
-bg.src = "images/bg.png"
-pipeUp.src = "images/pipeUp.png"
-pipeBottom.src = "images/pipeBottom.png"
+function uploadImages () {
+	bird.src = birds[chosen_bird]
+	bg.src = "images/Backgrounds/bg.png"
+	bgNewYorkCity1.src = "images/Backgrounds/NewYork3.jpg"
+	pipeUp.src = "images/pipeUp.png"
+	pipeBottom.src = "images/pipeBottom.png"
+}
+
+function renderBirdSkins(bird) {
+	birdSkins.forEach(item => {
+		Number(item.getAttribute("id")) === bird ? item.classList.add('skin_img_active') : item.classList.remove('skin_img_active') 
+		skinsMenu.append(item)
+	})
+}
 
 // Gap!
 
@@ -57,17 +101,28 @@ pipes[0] = {
 
 let score = 0
 
+let gapLevelScore = 3
+
 // Load Audio!
 
-const firstSong = new Audio
+const song1 = new Audio
+const song2 = new Audio
 
-firstSong.src = "audio/firstSong.mp3"
+song1.src = "audio/firstSong.mp3"
+song2.src = "audio/secondSong.mp3"
  
 // Draw game!
 
 function draw() {
-	ctx.drawImage(bg, 0, 0)
-	firstSong.play()
+	
+	if(score >= gapLevelScore) {
+		song1.pause()
+		song2.play()
+		ctx.drawImage(bgNewYorkCity1, 0, 0)
+	} else {
+		song1.play()
+		ctx.drawImage(bg, 0, 0)
+	}
 	for(let i = 0; i < pipes.length; i++) {
 		ctx.drawImage(pipeUp, pipes[i].x, pipes[i].y)
 		ctx.drawImage(pipeBottom, pipes[i].x, pipes[i].y + pipeUp.height + gap)
@@ -104,7 +159,17 @@ function draw() {
 
 function startGame() {
 	gameMenu.style.display = 'none'
+	skinsMenu.style.display = 'none'
 	cvs.style.display = 'block'
 
+	uploadImages()
 	draw()
+}
+
+function goToSkins() {
+	gameMenu.style.display = 'none'
+	cvs.style.display = 'none'
+	skinsMenu.style.display = 'block'
+	renderBirdSkins(chosen_bird)
+
 }
