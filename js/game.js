@@ -34,6 +34,19 @@ const birds = [
 
 let chosen_bird = 0
 
+window.onbeforeunload = function(e) {
+	if(localStorage) {
+		localStorage["chosen_bird_index"] = chosen_bird
+	}
+}
+
+window.onload = function() {
+	if(localStorage) {
+		let savedBird = localStorage["chosen_bird_index"]
+		if(savedBird !== null) chosen_bird = localStorage["chosen_bird_index"]
+	}
+}
+
 const birdSkins = birds.map((str, index) => {
 	const image = document.createElement(`img`)
 	image.classList.add("skin_img") 
