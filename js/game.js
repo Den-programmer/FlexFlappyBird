@@ -21,6 +21,17 @@ cvs.height = 512
 
 // Load images!
 
+const pipesImages = [
+	{
+		pipeUp: "images/pipeUp.png",
+		pipeBottom: "images/pipeBottom.png"
+	},
+	{
+		pipeUp: "images/pipeUpRoman.png",
+		pipeBottom: "images/pipeBottomRoman.png"
+	}
+]
+
 const birds = [
 	"images/birds/flappy_bird.png",
 	"images/birds/flappy_bird2.png",
@@ -31,6 +42,8 @@ const birds = [
 	"images/birds/lightningMCQUEEN95BirdFlappy.png",
 	"images/birds/HarryPotter2.png",
 ]
+
+let chosenPipesIndex = 0
 
 let chosen_bird = 0
 
@@ -62,15 +75,17 @@ const birdSkins = birds.map((str, index) => {
 const bird = new Image()
 const bg = new Image()
 const bgNewYorkCity1 = new Image()
+const romanEmpire_bg = new Image()
 const pipeUp = new Image()
 const pipeBottom = new Image()
 
 function uploadImages () {
 	bird.src = birds[chosen_bird]
-	bg.src = "images/Backgrounds/bg.png"
+	bg.src = "images/Backgrounds/bg.png",
+	romanEmpire_bg.src = "images/Backgrounds/RomeEmpire.jpg"
 	bgNewYorkCity1.src = "images/Backgrounds/NewYork3.jpg"
-	pipeUp.src = "images/pipeUp.png"
-	pipeBottom.src = "images/pipeBottom.png"
+	pipeUp.src = pipesImages[chosenPipesIndex].pipeUp
+	pipeBottom.src = pipesImages[chosenPipesIndex].pipeBottom
 }
 
 function renderBirdSkins(bird) {
@@ -114,27 +129,32 @@ pipes[0] = {
 
 let score = 0
 
-let gapLevelScore = 3
-
 // Load Audio!
 
 const song1 = new Audio
 const song2 = new Audio
+const song3 = new Audio
 
 song1.src = "audio/firstSong.mp3"
 song2.src = "audio/secondSong.mp3"
+song3.src = "audio/MISSIO_Roman Empire.mp3"
  
 // Draw game!
 
 function draw() {
-	
-	if(score >= gapLevelScore) {
+	if(score >= 3 && score < 30) {
 		song1.pause()
 		song2.play()
+		chosenPipesIndex = 0
 		ctx.drawImage(bgNewYorkCity1, 0, 0)
+	} else if (score >= 30) {
+		song2.pause()
+		song3.play()
+		chosenPipesIndex++
+		ctx.drawImage(romanEmpire_bg, 0, 0)	
 	} else {
 		song1.play()
-		ctx.drawImage(bg, 0, 0)
+		ctx.drawImage(bg, 0, 0)	
 	}
 	for(let i = 0; i < pipes.length; i++) {
 		ctx.drawImage(pipeUp, pipes[i].x, pipes[i].y)
