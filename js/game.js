@@ -106,14 +106,14 @@ let birdY = 250
 
 // Gravity!
 
-let gravity = 1.2
+let gravity = 0.5
 
 // Moving bird up!
 
 cvs.addEventListener('click', moveBirdUp)
 
 function moveBirdUp() {
-	birdY-=30
+	birdY-=60
 }
 
 // Pipes!
